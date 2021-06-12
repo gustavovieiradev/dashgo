@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Flex, Heading, Icon, List, ListItem, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Flex, Heading, Icon, List, ListItem, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue, Link as ChakraLink } from "@chakra-ui/react";
 import Link from "next/link";
 import { useState } from "react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
@@ -6,17 +6,17 @@ import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 import { useUsers } from "../../services/hooks/useUsers";
+import { queryClient } from "../../services/queryClient";
 
 export default function UserList() {
   const [page, setPage] = useState(1);
   const {data, isLoading, error, isFetching } = useUsers(page);
 
-  console.log(page);
-
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true
   })
+
   return (
     <Box>
       <Header />
@@ -62,7 +62,9 @@ export default function UserList() {
                       </Td>
                       <Td>
                         <Box>
-                          <Text fontWeight="bold">{user.name}</Text>
+                          <ChakraLink color="purple.400">
+                            <Text fontWeight="bold">{user.name}</Text>
+                          </ChakraLink>
                           <Text fontSize="sm" color="gray.300">{user.email}</Text>
                         </Box>
                       </Td>
